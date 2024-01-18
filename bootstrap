@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+
+import os
+import subprocess
+from pathlib import Path
+
+
+REPO_URL = 'https://github.com/typecoercion/setup-mac.git'
+SETUP_PATH = Path('~/.setup').expanduser()
+
+
+def run(cmd, **kwargs):
+    print(f"Executing: {cmd}")
+    subprocess.run(cmd, check=True, **kwargs)
+
+
+def main():
+    if SETUP_PATH.exists():
+        print("updating setup repository")
+        run(['git', 'pull'], cwd=SETUP_PATH)
+    else:
+        print("cloning setup repository")
+        run(['git', 'clone', REPO_URL], cwd=SETUP_PATH.parent)
+
+    # os.environ['PATH'] = ':'.join([
+    #     str(Path("~/bin").expanduser()),
+    #     str(Path("~/.cargo/bin").expanduser()),
+    #     '/opt/homebrew/bin', # M1 homebrew path
+    #     os.environ["PATH"],
+    # ])
+    # print("Installing all the things")
+    # run(['brew', 'install', 'just'])
+    # run(['just', '--justfile', SETUP_PATH/'justfile', 'init'])
+    # print("Done installing all the things.")
+
+
+if __name__ == '__main__':
+    main()
