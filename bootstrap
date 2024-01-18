@@ -20,7 +20,7 @@ def main():
         run(['git', 'pull'], cwd=SETUP_PATH)
     else:
         print("cloning setup repository")
-        run(['git', 'clone', REPO_URL], cwd=SETUP_PATH.parent)
+        run(['git', 'clone', REPO_URL, SETUP_PATH], cwd=SETUP_PATH.parent)
 
     # os.environ['PATH'] = ':'.join([
     #     str(Path("~/bin").expanduser()),
